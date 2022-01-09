@@ -33,7 +33,8 @@
 #include "parse.h"
 
 xcb_keysym_t Alt_L, Alt_R, Super_L, Super_R, Hyper_L, Hyper_R,
-             Meta_L, Meta_R, Mode_switch, Num_Lock, Scroll_Lock;
+             Meta_L, Meta_R, Mode_switch, Num_Lock, Scroll_Lock,
+             KP_Space, KP_9;
 
 keysym_dict_t nks_dict[] = {/*{{{*/
 	{"VoidSymbol"                  , 0xffffff}   ,
@@ -2800,6 +2801,8 @@ void get_standard_keysyms(void)
 	GETKS(Mode_switch)
 	GETKS(Num_Lock)
 	GETKS(Scroll_Lock)
+    GETKS(KP_Space)
+    GETKS(KP_9)
 #undef GETKS
 }
 
@@ -2878,4 +2881,8 @@ xcb_keycode_t *keycodes_from_keysym(xcb_keysym_t keysym)
 			}
 	}
 	return result;
+}
+bool is_keypad(xcb_keysym_t keysym)
+{
+    return(keysym >= KP_Space && keysym <= KP_9);
 }
